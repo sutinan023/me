@@ -1,7 +1,10 @@
-.next
-node_modules
-.env.local
-.vercel
+﻿.next/
+node_modules/
+.env*
+!.env.example
+.vercel/
 .DS_Store
-
-.vercel
+.playwright-cli/
+.superpowers/
+output/
+app/assessment/page (3).js

@@ -1,0 +1,20 @@
+{
+  "approvedMapping": "PERSONAL_SIGN_MAPPING_REVIEW.md",
+  "assets": [
+    {
+      "asset": "public/signs/enfp-mapped-v1.png",
+      "mode": "built-in image_gen edit",
+      "prompt": "Edit the supplied assembled ENFP Personal Sign artwork. Preserve the existing silhouette, placement and scale of ALL large sage, peach, lavender and blue curling ribbons, the small botanical leaves, the green branching central stem, watercolor/paper texture, muted palette and transparent alpha. Make ONE targeted addition: a small distinct warm peach seed with soft golden inner light, centered at normalized image coordinates x=0.46,y=0.64 (the main branching junction). Seed should be approximately 0.075 image width and 0.09 image height, smooth rounded almond form with a tiny ochre collar mounting it on the existing branching stem. It is a separate F decision core; do not recolor ribbons or replace any existing ribbon with the seed. Keep original stem visible around it. No labels, text, background, shadow panel or frame. Transparent background preserved."
+    },
+    {
+      "asset": "public/signs/enfp-exploded-mapped-v1.png",
+      "mode": "built-in image_gen edit",
+      "prompt": "Edit target is image 1 (existing exploded ENFP); image 2 is the approved assembled reference with the new warm seed core. Preserve image 1's exact placements of every existing ribbon, all leaves, stem pieces, palette, paper texture, transparent background and overall coherent exploded assembly. Add the same small almond shaped luminous peach seed from image 2 as an independent detached component, centered at x=0.33,y=0.63, about 0.07 image width by 0.1 image height. Keep it in the CLEAR EMPTY space below the left lavender ribbon and above the lower left green leaf. Connect it with a thin ochre dotted assembly guide to the central branching junction at x=0.49,y=0.62. The seed has its own tiny gold collar and warm center. It must NOT touch or overlap any existing ribbon, leaf, or stem; leave transparent clearance around it. No rearrangement, no additional seed copies, no texts, no background, no 2x2 groups. Preserve full transparent alpha."
+    },
+    {
+      "asset": "public/signs/enfj-exploded-mapped-v1.png",
+      "mode": "built-in image_gen edit",
+      "prompt": "Edit this exploded ENFJ Personal Sign. Preserve central warm light/flower core at x=.5,y=.44, its scale; preserve lower leaf base at x=.5,y=.81, top and bottom small ochre connecting rods, watercolor paper style, muted sage/peach/lavender colors and overall oval silhouette. Fix the OUTER oval assembly to have independently detached botanical leaves and independently detached plain structural stems. Structural J frame consists of two slender smooth sage oval curved rails located near x=.25 and x=.75, each running from y=.18 to y=.68; these rails have NO leaves painted on them. Separate all outer leaf blades and short leafy sprigs from these rails and arrange them radially outward along their original positions, roughly x=.04-.19 on the left and x=.81-.96 on the right, with clear transparent gaps from rails. Upper detached leaves can spread in the top corners x=.15-.38 and x=.62-.85 above y=.16. Leaf pieces must have visible mounting sockets and thin dotted ochre assembly lines toward corresponding rails. At bottom leave the original leaf base independent. Central core leaves remain part of central F flower, do not detach these. Keep four groups visually independent: external botanical leaves E, narrow ochre internal connecting rods N, central warm flower F, outer smooth oval rails and lower base J. This is ONE coherent physically exploded oval assembly, not four panels. No letters, text, boxes, background. Full transparent background."
+    }
+  ]
+}

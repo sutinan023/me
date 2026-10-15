@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getLatestResult } from "@/lib/storage";
+import SignPreview from "@/components/signs/SignPreview";
 import { decodeLocalShare } from "@/lib/share";
 
 const DIMENSIONS = ["EI", "SN", "TF", "JP"];
@@ -199,7 +200,7 @@ export default function ComparePage() {
       setOther(data.result);
       setLoaded(true);
       setImportMessage(
-        `นำเข้าผล ${data.result.type || computedType(data.result.dims)} สำเร็จแล้ว`
+        `นำเข้าผล ${data.result.type || computedType(data.result.dims)} สำเร็จแล้ว`,
       );
 
       return true;
@@ -227,7 +228,7 @@ export default function ComparePage() {
     setOther(decoded);
     setLoaded(true);
     setImportMessage(
-      `นำเข้าผล ${decoded.type || computedType(decoded.dims)} สำเร็จแล้ว`
+      `นำเข้าผล ${decoded.type || computedType(decoded.dims)} สำเร็จแล้ว`,
     );
 
     return true;
@@ -277,7 +278,7 @@ export default function ComparePage() {
       await importFriendResult(text);
     } catch {
       setImportError(
-        "Browser ไม่อนุญาตให้อ่าน Clipboard กรุณากด Ctrl+V หรือวางลิงก์ด้วยตัวเอง"
+        "Browser ไม่อนุญาตให้อ่าน Clipboard กรุณากด Ctrl+V หรือวางลิงก์ด้วยตัวเอง",
       );
     }
   }
@@ -323,7 +324,9 @@ export default function ComparePage() {
       setShareMessage("คัดลอกลิงก์ Compare แล้ว");
     } catch (error) {
       if (error?.name !== "AbortError") {
-        setShareMessage("ไม่สามารถแชร์อัตโนมัติได้ ลอง Copy URL จาก browser แทน");
+        setShareMessage(
+          "ไม่สามารถแชร์อัตโนมัติได้ ลอง Copy URL จาก browser แทน",
+        );
       }
     }
   }
@@ -333,19 +336,15 @@ export default function ComparePage() {
 
     const strongest = strongestDifference(me.dims, other.dims);
 
-    const similarities = DIMENSIONS
-      .map((key) => ({
-        key,
-        diff: Math.abs(me.dims[key] - other.dims[key]),
-      }))
-      .filter((item) => item.diff <= 20);
+    const similarities = DIMENSIONS.map((key) => ({
+      key,
+      diff: Math.abs(me.dims[key] - other.dims[key]),
+    })).filter((item) => item.diff <= 20);
 
-    const differences = DIMENSIONS
-      .map((key) => ({
-        key,
-        diff: Math.abs(me.dims[key] - other.dims[key]),
-      }))
-      .filter((item) => item.diff >= 30);
+    const differences = DIMENSIONS.map((key) => ({
+      key,
+      diff: Math.abs(me.dims[key] - other.dims[key]),
+    })).filter((item) => item.diff >= 30);
 
     return {
       strongest,
@@ -401,10 +400,11 @@ export default function ComparePage() {
         </p>
 
         {/* IMPORT */}
-        <div className="info" style={{ marginTop: 18, padding: 18 }}>
-          <h3 style={{ marginTop: 0, marginBottom: 6 }}>
-            นำเข้าผลของอีกคน
-          </h3>
+        <div
+          className="info friend-import"
+          style={{ marginTop: 18, padding: 18 }}
+        >
+          <h3 style={{ marginTop: 0, marginBottom: 6 }}>นำเข้าผลของอีกคน</h3>
 
           <p className="muted" style={{ fontSize: 13, marginTop: 0 }}>
             วาง Share Link ที่เพื่อนส่งมา หรือใส่ Friend Code อย่างเดียวก็ได้
@@ -413,7 +413,7 @@ export default function ComparePage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr auto auto",
+              gridTemplateColumns: "minmax(0, 1fr) auto auto",
               gap: 8,
               marginTop: 12,
             }}
@@ -526,10 +526,9 @@ export default function ComparePage() {
         <div className="grid2" style={{ marginTop: 16 }}>
           <div className="info">
             <span className="pill">YOU</span>
+            <SignPreview type={me.type} />
 
-            <h2 style={{ fontSize: 34, marginBottom: 6 }}>
-              {me.type}
-            </h2>
+            <h2 style={{ fontSize: 34, marginBottom: 6 }}>{me.type}</h2>
 
             <p className="muted" style={{ lineHeight: 1.8 }}>
               {myScores.EI}
@@ -566,9 +565,8 @@ export default function ComparePage() {
               )}
             </div>
 
-            <h2 style={{ fontSize: 34, marginBottom: 6 }}>
-              {otherType}
-            </h2>
+            <SignPreview type={otherType} />
+            <h2 style={{ fontSize: 34, marginBottom: 6 }}>{otherType}</h2>
 
             <p className="muted" style={{ lineHeight: 1.8 }}>
               {otherScores.EI}
@@ -589,9 +587,7 @@ export default function ComparePage() {
                     gap: 8,
                   }}
                 >
-                  <label style={{ fontSize: 12, fontWeight: 800 }}>
-                    {key}
-                  </label>
+                  <label style={{ fontSize: 12, fontWeight: 800 }}>{key}</label>
 
                   <span className="muted" style={{ fontSize: 11 }}>
                     {otherScores[key]}
@@ -633,8 +629,7 @@ export default function ComparePage() {
             <span className="pill">KEY DIFFERENCE</span>
 
             <h2 style={{ marginBottom: 6 }}>
-              ต่างกันมากที่สุดที่{" "}
-              {DIMENSION_META[analysis.strongest.key].title}
+              ต่างกันมากที่สุดที่ {DIMENSION_META[analysis.strongest.key].title}
             </h2>
 
             <p className="muted" style={{ marginBottom: 0 }}>
@@ -706,9 +701,7 @@ export default function ComparePage() {
                   }}
                 >
                   <span>{meta.left}</span>
-                  <span>
-                    ● คุณ &nbsp;&nbsp; ● {displayFriend}
-                  </span>
+                  <span>● คุณ &nbsp;&nbsp; ● {displayFriend}</span>
                   <span>{meta.right}</span>
                 </div>
               </div>
@@ -753,9 +746,11 @@ export default function ComparePage() {
                     ? `${analysis.similarities
                         .map(
                           (x) =>
-                            `${DIMENSION_META[x.key].title} (${x.diff} จุด)`
+                            `${DIMENSION_META[x.key].title} (${x.diff} จุด)`,
                         )
-                        .join(", ")} มีคะแนนค่อนข้างใกล้กัน จึงอาจมีจังหวะหรือความคาดหวังคล้ายกันในเรื่องเหล่านี้`
+                        .join(
+                          ", ",
+                        )} มีคะแนนค่อนข้างใกล้กัน จึงอาจมีจังหวะหรือความคาดหวังคล้ายกันในเรื่องเหล่านี้`
                     : "ทั้ง 4 แกนมีความต่างพอสมควร ซึ่งไม่ได้แปลว่าเข้ากันไม่ได้ แต่ควรสื่อสารความต้องการของแต่ละคนให้ตรงมากขึ้น"}
                 </p>
               </div>
@@ -768,9 +763,11 @@ export default function ComparePage() {
                     ? `${analysis.differences
                         .map(
                           (x) =>
-                            `${DIMENSION_META[x.key].title} (${x.diff} จุด)`
+                            `${DIMENSION_META[x.key].title} (${x.diff} จุด)`,
                         )
-                        .join(", ")} ต่างกันค่อนข้างชัด ควรมองเป็น “ความต้องการคนละแบบ” มากกว่าตัดสินว่าใครทำถูกกว่า`
+                        .join(
+                          ", ",
+                        )} ต่างกันค่อนข้างชัด ควรมองเป็น “ความต้องการคนละแบบ” มากกว่าตัดสินว่าใครทำถูกกว่า`
                     : "ไม่มีแกนใดต่างกันมากเป็นพิเศษ แต่คนที่คะแนนใกล้กันก็ยังมีประสบการณ์ ค่านิยม และนิสัยต่างกันได้"}
                 </p>
               </div>
@@ -825,8 +822,8 @@ export default function ComparePage() {
             lineHeight: 1.6,
           }}
         >
-          การเปรียบเทียบนี้ใช้ระยะห่างของคะแนนแต่ละ dimension
-          เพื่อช่วย self-reflection เท่านั้น ไม่ใช่คะแนน compatibility
+          การเปรียบเทียบนี้ใช้ระยะห่างของคะแนนแต่ละ dimension เพื่อช่วย
+          self-reflection เท่านั้น ไม่ใช่คะแนน compatibility
           และไม่สามารถทำนายคุณภาพของความสัมพันธ์ได้
         </div>
       </section>
@@ -839,7 +836,7 @@ export default function ComparePage() {
         }
 
         @media (max-width: 720px) {
-          .info > div[style*="grid-template-columns: 1fr auto auto"] {
+          .friend-import > div {
             grid-template-columns: 1fr !important;
           }
         }

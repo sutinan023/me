@@ -1,0 +1,107 @@
+[
+  {
+    "type": "ISTJ",
+    "subject": "Three softly faceted sage stone shapes stacked in a centered inward arrangement, with an orderly closed pale-sage oval surround and a grounded warm-ochre base.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/istj.png"
+  },
+  {
+    "type": "INFJ",
+    "subject": "Three nested rounded lavender and sage archways enclosing a small warm light; a gently branching curved path connects toward the center. Closed resolved composition.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/infj.png"
+  },
+  {
+    "type": "INTJ",
+    "subject": "An original compact geometric directional compass structure in dusty blue and sage, symmetrical angular connected arms centered around ochre light, enclosed in a precise closed octagonal border. No zodiac or compass lettering.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/intj.png"
+  },
+  {
+    "type": "ISTP",
+    "subject": "Three interlocking sage and dusty-blue hinged geometric pieces around a quiet central pivot; low solid stone-like footing, inward focus, asymmetric open-ended edges and a visible small gap.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/istp.png"
+  },
+  {
+    "type": "ISFP",
+    "subject": "Two softly curved sage leaves nest around a peach pebble, centered inward like an open little shelter, tactile low solid form, naturally asymmetric edges; gentle organic transitions.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/isfp.png"
+  },
+  {
+    "type": "INFP",
+    "subject": "A small peach and lavender flower-like abstract bud made of three curved connected petals nestled in an open inward sage crescent, one branching stem, delicate relational curves, open asymmetric silhouette.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/infp.png"
+  },
+  {
+    "type": "INTP",
+    "subject": "Three connected small dusty-blue geometric nodes on angular orbital paths curving toward a central sage hub, abstract connected possibilities, precise angular balance, incomplete open orbital enclosure.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/intp.png"
+  },
+  {
+    "type": "ESTP",
+    "subject": "Three grounded sage and dusty-blue geometric wedges projecting outward from a solid low ochre pivot, tactile stable forms, precise angular shapes, asymmetric open direction and a visible sense of movement.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/estp.png"
+  },
+  {
+    "type": "ESFP",
+    "subject": "Three muted-coral and peach organic petal forms opening outward around a warm ochre center with a low sage pebble-like grounding, soft flowing curves, asymmetric open edges.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/esfp.png"
+  },
+  {
+    "type": "ENFP",
+    "subject": "A small original abstract branching botanical form with sage and muted coral curves opening outward from a shared center, interconnected possibility branches and unfurling soft ends, warm organic movement and asymmetric open silhouette.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/enfp.png"
+  },
+  {
+    "type": "ENTP",
+    "subject": "Three precise angular dusty-blue and sage ribbons branching and crossing from a common warm ochre pivot, outward-expanding connected possibilities, flexible geometric open-ended silhouette.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/entp.png"
+  },
+  {
+    "type": "ESTJ",
+    "subject": "Three orderly grounded sage and dusty-blue columns project outward in aligned tiers from a tactile ochre plinth; a pale sage geometric completed frame unites them, clear ordered closure and balanced weight.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/estj.png"
+  },
+  {
+    "type": "ESFJ",
+    "subject": "Three organic sage and peach shelter-like forms open outward yet gather around a soft warm coral light, grounded tactile base and a resolved closed circular overall composition, soft relational curves.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/esfj.png"
+  },
+  {
+    "type": "ENFJ",
+    "subject": "Two organic sage and peach arching branches extend outward and connect around a small branching warm light; a soft closed oval frame resolves the composition, interconnected possibility and gentle relational growth.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/enfj.png"
+  },
+  {
+    "type": "ENTJ",
+    "subject": "Three angular dusty-blue and sage branching pathways extend outward from an ochre geometric hub, connected abstract possibilities and precise balanced structure, all resolved within a closed pale-sage geometric frame. No crown, no ranks.",
+    "styleReference": "public/signs/isfj.png",
+    "generation": "built-in imagegen; transparent background",
+    "file": "public/signs/entj.png"
+  }
+]
