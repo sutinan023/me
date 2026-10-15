@@ -13,7 +13,6 @@ export default function Header() {
         </Link>
         <nav aria-label="เมนูหลัก">
           <Link href="/result">ผลของฉัน</Link>
-          <Link href="/report">สรุปผล</Link>
           <Link href="/contexts">บริบทของฉัน</Link>
           <Link href="/history">ประวัติ</Link>
           <Link href="/compare">เปรียบเทียบ</Link>

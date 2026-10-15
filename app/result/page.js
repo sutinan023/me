@@ -10,6 +10,8 @@ import { adjacentTypes } from "@/lib/scoring";
 import { getLatestResult } from "@/lib/storage";
 import ContextResult from "@/components/contexts/ContextResult";
 import Link from "next/link";
+import { buildReport } from '@/lib/report';
+import ProfileInsights from '@/components/ProfileInsights';
 
 function ResultContent() {
   const [p, setP] = useState(null);
@@ -28,10 +30,11 @@ function ResultContent() {
     );
 
   const adjacent = adjacentTypes(p.type, p.dims);
+  const report=buildReport(p);
   return (
     <main className="wrap">
       <section className="card">
-        <div className="context-card-actions"><Link className="btn btn-soft" href="/contexts">สำรวจ Context Mode ↗</Link></div>
+        <div className="result-heading"><h1 className="section-title">ผลของฉัน</h1><div className="context-card-actions"><Link className="btn btn-soft" href="/contexts">สำรวจ Context Mode ↗</Link><SharePanel profile={p}/></div></div>
         <div style={{ textAlign: "center" }}>
           <p className="eyebrow">YOUR PERSONAL SIGN</p>
           <SignPreview type={p.type} />
@@ -91,9 +94,9 @@ function ResultContent() {
             <span className="muted">— มีบางมิติอยู่ใกล้ 50/50</span>
           </div>
         )}
-        <InsightTabs />
+        <ProfileInsights report={report}/>
+        <InsightTabs overview={report.summary}/>
         <AskAboutMe profile={p} />
-        <SharePanel profile={p} />
       </section>
     </main>
   );

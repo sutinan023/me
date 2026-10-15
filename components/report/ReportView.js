@@ -7,6 +7,7 @@ import { decodeLocalShare, isValidResult } from '@/lib/share';
 import { buildReport, getReportLinks } from '@/lib/report';
 import { getContextSession } from '@/lib/contextStorage';
 import { getContext } from '@/data/contextQuestions';
+import DownloadSign from '@/components/signs/DownloadSign';
 
 export default function ReportView() {
   const [state,setState]=useState({ loading: true });
@@ -49,7 +50,7 @@ export default function ReportView() {
         previewUrl=URL.createObjectURL(await canvasBlob(canvas));
         if (cancelled) { URL.revokeObjectURL(previewUrl); return; }
         canvasRef.current=canvas;
-        setState({ loading:false, report, links, previewUrl, shared, contextual, metadata, sessionId:profile.id, contextKey:profile.context });
+        setState({ loading:false, report, links, previewUrl, shared, contextual, metadata, sessionId:profile.id, contextKey:profile.context, cardProfile:{type:profile.type,name:report.name,dims:profile.dims} });
       } catch (error) {
         if (!cancelled) setState({ loading:false, error:error.message || 'เปิดรายงานไม่สำเร็จ', contextual });
       }
@@ -85,8 +86,8 @@ export default function ReportView() {
   const { report,links }=state;
   return <main className="wrap report-wrap">
     <div className="report-heading">
-      <div><p className="eyebrow">A KEEPSAKE OF WHO YOU ARE TODAY.</p><h1 className="section-title">{state.contextual?`${state.metadata.contextLabel} · สรุปผลของคุณ`:state.shared ? 'สรุปผลที่แชร์ให้คุณ' : 'สรุปผลของคุณ'}</h1><p className="muted">{state.contextual?`${state.metadata.questionnaireVersion} · ${new Date(state.metadata.createdAt).toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})}`:'หนึ่งหน้าเพื่อเข้าใจตัวเอง เก็บไว้ หรือส่งต่อให้ใครสักคน'}</p></div>
-      <Link className="report-back" href={state.contextual?'/contexts':'/result'}>← {state.contextual?'Context Mode':'ผลของฉัน'}</Link>
+      <div><p className="eyebrow">A KEEPSAKE OF WHO YOU ARE TODAY.</p><h1 className="section-title">{state.contextual?`${state.metadata.contextLabel} · บันทึกและแชร์ผล`:state.shared ? 'สรุปผลที่แชร์ให้คุณ' : 'บันทึกและแชร์ผลของฉัน'}</h1><p className="muted">{state.contextual?`${state.metadata.questionnaireVersion} · ${new Date(state.metadata.createdAt).toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})}`:'เลือกดาวน์โหลด PNG / PDF หรือแชร์ลิงก์ จากสรุปผลหนึ่งหน้าด้านล่าง'}</p></div>
+      <Link className="report-back" href={state.contextual?`/result?contextSession=${encodeURIComponent(state.sessionId)}`:'/result'}>← {state.contextual?'ผลบริบทของฉัน':'ผลของฉัน'}</Link>
     </div>
     <section className="report-toolbar" aria-label="บันทึกและแชร์สรุปผล">
       <button className="btn btn-primary" disabled={!!busy} onClick={() => action('png')}>{busy === 'png' ? 'กำลังสร้าง…' : '↓ ดาวน์โหลด PNG'}</button>
@@ -101,6 +102,7 @@ export default function ReportView() {
       <img src={state.previewUrl} width="1588" height="2246" alt={`สรุปผล ${report.type}${state.contextual?` · ${state.metadata.contextLabel}`:''}: ภาพรวม, 4 มิติ, จุดเด่น, Growth tips อ่านรายละเอียดแบบข้อความด้านล่าง`} />
       <figcaption><a href={state.previewUrl} target="_blank" rel="noopener noreferrer">เปิดภาพขนาดเต็ม ↗</a><a href={state.contextual?'/contexts':links.compare}>{state.contextual?'เทียบบริบทของฉัน ↗':'เปรียบเทียบกับผลนี้ ↗'}</a></figcaption>
     </figure>
+    {!state.contextual&&<details className="report-text"><summary>บันทึกเฉพาะการ์ดสัญลักษณ์</summary><div className="context-card-actions"><DownloadSign profile={state.cardProfile}/></div></details>}
     <details className="report-text"><summary>อ่านสรุปผลแบบข้อความ</summary><article>
       <h2>{report.type} · {report.name}</h2><p>{report.summary}</p>
       <h3>4 มิติของคุณ</h3><ul>{report.dimensions.map(d => <li key={d.key}><strong>{d.title}: {d.left} {d.leftPct}% / {d.right} {d.rightPct}%</strong> — {d.description}</li>)}</ul>
