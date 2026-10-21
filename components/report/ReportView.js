@@ -8,6 +8,7 @@ import { buildReport, getReportLinks } from '@/lib/report';
 import { getContextSession } from '@/lib/contextStorage';
 import { getContext } from '@/data/contextQuestions';
 import DownloadSign from '@/components/signs/DownloadSign';
+import NoSavedResult from '@/components/NoSavedResult';
 
 export default function ReportView() {
   const [state,setState]=useState({ loading: true });
@@ -35,6 +36,10 @@ export default function ReportView() {
           profile=data.result;
         } else if (params.has('p')) profile=decodeLocalShare(params.get('p'));
         else profile=getLatestResult();
+        if (!contextual && !shared && !profile) {
+          if (!cancelled) setState({ loading:false, empty:true });
+          return;
+        }
         if (!isValidResult(profile)) throw new Error('ข้อมูลรายงานไม่ถูกต้องหรือไม่สมบูรณ์');
         const report=buildReport(profile);
         const links=contextual?{report:null,compare:null}:getReportLinks(profile,window.location.origin);
@@ -82,6 +87,7 @@ export default function ReportView() {
   }
 
   if (state.loading) return <main className="wrap report-wrap"><section className="card" role="status">กำลังจัดหน้าสรุปผลของคุณ…</section></main>;
+  if (state.empty) return <NoSavedResult />;
   if (state.error) return <main className="wrap report-wrap"><section className="card"><h1 className="section-title">เปิดสรุปผลไม่ได้</h1><p role="alert">{state.error}</p><Link className="btn btn-primary" href={state.contextual?'/contexts':'/result'}>กลับไปดูผลของฉัน</Link></section></main>;
   const { report,links }=state;
   return <main className="wrap report-wrap">

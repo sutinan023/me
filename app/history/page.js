@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import SignPreview from "@/components/signs/SignPreview";
 import { getHistory } from "@/lib/storage";
+import Link from "next/link";
 
 export default function HistoryPage() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   useEffect(() => setItems(getHistory()), []);
   return (
     <main className="wrap">
@@ -14,8 +15,15 @@ export default function HistoryPage() {
           เก็บใน browser นี้เป็นค่าเริ่มต้น เพื่อให้ยังใช้ได้แม้ไม่ล็อกอิน
         </p>
         <div style={{ display: "grid", gap: 10, marginTop: 18 }}>
-          {!items.length && <p className="muted">กำลังโหลดประวัติ…</p>}
-          {[...items].reverse().map((x) => (
+          {items === null ? (
+            <p className="muted" role="status">กำลังโหลดประวัติ…</p>
+          ) : !items.length ? (
+            <div>
+              <p className="muted">ยังไม่มีประวัติการประเมินในเบราว์เซอร์นี้</p>
+              <Link className="btn btn-primary" href="/assessment">เริ่มสำรวจตัวเอง ↗</Link>
+            </div>
+          ) : null}
+          {[...(items || [])].reverse().map((x) => (
             <div
               className="info"
               key={x.id}

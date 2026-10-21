@@ -6,7 +6,18 @@ export const REFERENCES = [
   },
   {
     group: "Peer-reviewed research",
-    citation: "Boateng, G. O., et al. (2018). Best Practices for Developing and Validating Scales for Health, Social, and Behavioral Research: A Primer. Frontiers in Public Health, 6, 149."
+    citation: "Boateng, G. O., et al. (2018). Best Practices for Developing and Validating Scales for Health, Social, and Behavioral Research: A Primer. Frontiers in Public Health, 6, 149.",
+    doi: "10.3389/fpubh.2018.00149"
+  },
+  {
+    group: "Peer-reviewed research",
+    citation: "Lievens, F., De Corte, W., & Schollaert, E. (2008). A closer look at the frame-of-reference effect in personality scale scores and validity. Journal of Applied Psychology, 93(2), 268–279.",
+    doi: "10.1037/0021-9010.93.2.268"
+  },
+  {
+    group: "Peer-reviewed research",
+    citation: "Landers, R. N., & Collmus, A. B. (2022). Gamifying a personality measure by converting it into a story: Convergence, incremental prediction, faking, and reactions. International Journal of Selection and Assessment, 30(1), 145–156.",
+    doi: "10.1111/ijsa.12373"
   },
   {
     group: "Peer-reviewed research",

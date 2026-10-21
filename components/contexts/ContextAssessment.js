@@ -68,7 +68,8 @@ export default function ContextAssessment({context}) {
   return <main className="wrap context-assessment"><section className="card">
     <div className="context-assessment-heading"><span className="pill">{meta.label} · 24 ข้อ</span><Link href="/contexts">พักไว้ / เปลี่ยนบริบท ↗</Link></div>
     <h1 className="section-title">{meta.subtitle}</h1><p className="muted">{meta.prompt}</p>
-    <p className="context-small">ตอบจากประสบการณ์ในบริบทนี้ ไม่มีคำตอบที่ถูกหรือผิด · เก็บใน browser นี้</p>
+    <p className="context-small">เลือกจากสิ่งที่คุณมักทำจริงในบริบทนี้ ไม่มีคำตอบถูกหรือผิด และไม่ต้องเลือกด้านใดด้านหนึ่งสุดทาง · เก็บใน browser นี้</p>
+    <p className="context-small">1 = ใกล้ด้านซ้ายมาก · 4 = ใกล้ทั้งสองด้านพอ ๆ กัน · 7 = ใกล้ด้านขวามาก</p>
     <div className="context-progress-text"><span>Question {index+1} / 24</span><span>ตอบแล้ว {count}</span></div>
     <progress value={count} max={24} aria-label="ความคืบหน้าแบบประเมิน" />
     <h2 className="context-question">{q.question}</h2>

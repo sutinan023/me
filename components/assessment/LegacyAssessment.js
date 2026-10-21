@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { QUESTIONS } from "@/data/questions";
+import { QUESTIONS, QUESTIONNAIRE_VERSION } from "@/data/questions";
 import { scoreAssessment } from "@/lib/scoring";
 import {
   addHistory,
@@ -50,7 +50,7 @@ export default function AssessmentPage() {
         ...scored,
         id: `r-${Date.now()}`,
         createdAt: new Date().toISOString(),
-        questionnaireVersion: "v0.1",
+        questionnaireVersion: QUESTIONNAIRE_VERSION,
         source: "assessment",
       };
 
@@ -68,7 +68,7 @@ export default function AssessmentPage() {
           headers: { "Content-Type": "application/json" },
           signal: controller.signal,
           body: JSON.stringify({
-            questionnaireVersion: "v0.1",
+            questionnaireVersion: QUESTIONNAIRE_VERSION,
             answers: finalAnswers,
             result,
           }),
@@ -150,6 +150,9 @@ export default function AssessmentPage() {
   return (
     <main className="wrap">
       <section className="card">
+        <p className="eyebrow">มาสำรวจจังหวะที่เป็นคุณ</p>
+        <p className="muted">ลองนึกถึงสิ่งที่คุณมักทำจริงในชีวิตประจำวัน ไม่มีคำตอบถูกหรือผิด และไม่ต้องเลือกด้านใดด้านหนึ่งสุดทาง</p>
+        <p className="context-small">1 = ใกล้ด้านซ้ายมาก · 4 = ใกล้ทั้งสองด้านพอ ๆ กัน · 7 = ใกล้ด้านขวามาก</p>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, color: "var(--muted)", fontSize: 13 }}>
           <span>Question {index + 1} / {QUESTIONS.length}</span>
           <span>ตอบแล้ว {answered}</span>
@@ -165,19 +168,21 @@ export default function AssessmentPage() {
           </div>
 
           <div className="grid2">
-            <div className="info" style={{ fontWeight: 800, display: "flex", alignItems: "center" }}>{q.left}</div>
-            <div className="info" style={{ fontWeight: 800, textAlign: "right", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>{q.right}</div>
+            <div className="info" style={{ fontWeight: 800, display: "flex", alignItems: "center" }}>1 = {q.left}</div>
+            <div className="info" style={{ fontWeight: 800, textAlign: "right", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>7 = {q.right}</div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 9, marginTop: 22 }}>
+          <div className="assessment-scale">
             {[1,2,3,4,5,6,7].map((v) => {
               const isSelected = answers[index] === v;
               return (
                 <button
                   key={v}
+                  className="assessment-score"
                   onClick={() => choose(v)}
                   disabled={saving}
                   aria-label={`เลือกคะแนน ${v}`}
+                  aria-pressed={isSelected}
                   style={{
                     aspectRatio: "1",
                     padding: 0,
@@ -200,9 +205,9 @@ export default function AssessmentPage() {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, fontSize: 12, color: "var(--muted)", marginTop: 10 }}>
-            <span>ใกล้ด้านซ้ายมาก</span>
+            <span>ใกล้คำตอบ 1</span>
             <span>กึ่งกลาง</span>
-            <span>ใกล้ด้านขวามาก</span>
+            <span>ใกล้คำตอบ 7</span>
           </div>
 
           <div style={{ textAlign: "center", marginTop: 20, minHeight: 22, fontSize: 12, color: "var(--muted)" }}>
@@ -228,6 +233,28 @@ export default function AssessmentPage() {
           </button>
         </div>
       </section>
+      <style jsx>{`
+        .assessment-scale {
+          display: grid;
+          grid-template-columns: repeat(7, minmax(0, 1fr));
+          gap: 9px;
+          margin-top: 22px;
+        }
+        @media (max-width: 560px) {
+          .assessment-scale {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+          }
+          .assessment-score {
+            width: calc((100% - 24px) / 4);
+            min-height: 48px;
+            aspect-ratio: auto !important;
+            border-radius: 14px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }

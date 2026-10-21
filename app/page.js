@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SignArtwork from "@/components/signs/SignArtwork";
+import SavedResultLink from "@/components/SavedResultLink";
 export default function Home() {
   return (
     <main className="wrap">
@@ -20,9 +21,7 @@ export default function Home() {
             <Link className="btn btn-primary" href="/assessment">
               เริ่มสำรวจตัวเอง ↗
             </Link>
-            <Link className="btn btn-soft" href="/result">
-              ดูผลเดิมของฉัน
-            </Link>
+            <SavedResultLink />
           </div>
           <div className="home-facts">
             <span>48 คำถาม</span>

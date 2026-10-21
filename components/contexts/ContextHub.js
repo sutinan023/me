@@ -18,6 +18,7 @@ export default function ContextHub() {
   if(error) return <main className="wrap"><section className="card"><h1 className="section-title">อ่าน Context Mode ไม่สำเร็จ</h1><p role="alert">{error}</p><p className="muted">ข้อมูลเดิมยังไม่ได้ถูกล้าง ลองตรวจพื้นที่จัดเก็บหรือกลับมาเปิดใหม่</p><Link className="btn btn-soft" href="/result">ผลทั่วไปเดิม</Link></section></main>;
   if(!data) return <main className="wrap"><section className="card" role="status">กำลังโหลดบริบทของคุณ…</section></main>;
   const sessions=data.sessions.filter(s=>s.questionnaireVersion===CONTEXT_VERSION);
+  const archivedSessions=data.sessions.filter(s=>s.questionnaireVersion!==CONTEXT_VERSION);
   function pick(context) {if(context!=='general'&&selected[context]==='')return null;return sessions.find(s=>s.context===context&&s.id===selected[context])||selectLatestCompatible(sessions,context);}
   function restart(context) {
     try {createContextStore(window.localStorage).resetDraft(context);router.push(`/assessment?context=${context}`);} catch(e){setError(e.message);}
@@ -46,5 +47,8 @@ export default function ContextHub() {
       {general&&comparisons.length>0&&<ContextComparison general={general} sessions={comparisons}/>}
       <p className="context-small">{CONTEXT_VERSION} · เปอร์เซ็นต์คือคะแนนบน spectrum ไม่ใช่ความมั่นใจหรือความน่าจะเป็นของ Type · ไม่ใช่แบบประเมินที่ผ่านการตรวจสอบทางจิตมิติ</p>
     </section>
+    {archivedSessions.length>0&&<section className="context-selection"><h2 className="section-title">ผลจากชุดคำถามรุ่นก่อน</h2><p className="muted">ยังเปิดอ่านผลเดิมได้ คำถามแต่ละรุ่นอาจให้คะแนนต่างกัน จึงไม่นำผลเหล่านี้มาเทียบกับชุดปัจจุบันโดยตรง</p><div style={{display:'grid',gap:10}}>{[...archivedSessions].reverse().map(s=><Link className="info" key={s.id} href={`/result?contextSession=${encodeURIComponent(s.id)}`}>{getContextLabel(s.context)} · {s.type} · {contextDate(s.createdAt)} · {s.questionnaireVersion} ↗</Link>)}</div></section>}
   </main>;
 }
+
+function getContextLabel(context) { return CONTEXTS.find(c=>c.key===context)?.subtitle||context; }

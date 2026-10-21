@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getContext } from '@/data/contextQuestions';
+import { getContext, CONTEXT_VERSION } from '@/data/contextQuestions';
 import { getContextSession } from '@/lib/contextStorage';
 import { buildReport } from '@/lib/report';
 import { CONTEXT_COPY } from '@/lib/contextScoring';
@@ -19,6 +19,7 @@ export default function ContextResult({sessionId}) {
   const meta=getContext(result.context),report=buildReport(result);
   return <main className="wrap context-result"><section className="card">
     <p className="eyebrow">{meta.label} · สรุปผลตามบริบท</p><div className="result-heading"><h1 className="section-title">{meta.subtitle}</h1><SharePanel profile={result}/></div><p className="context-small">{contextDate(result.createdAt)} · {result.questionnaireVersion}</p>
+    {result.questionnaireVersion!==CONTEXT_VERSION&&<p className="info">ผลนี้มาจากชุดคำถามรุ่นก่อน เก็บไว้อ่านย้อนดูได้ แต่ไม่ควรเทียบคะแนนกับชุดปัจจุบันโดยตรง</p>}
     <div className="context-result-sign"><SignPreview type={result.type}/><h2>ใกล้ {result.type}</h2><p>{result.name}</p></div>
     <p className="context-reflection">{CONTEXT_COPY}</p><p className="muted">{report.summary}</p>
     {report.dimensions.map(d=><div key={d.key}><h3>{d.title}{d.balanced?' · ใกล้กึ่งกลาง':''}</h3><DimensionBar left={d.left} right={d.right} value={d.value} leftPct={d.leftPct} rightPct={d.rightPct}/></div>)}

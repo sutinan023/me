@@ -12,9 +12,10 @@ import ContextResult from "@/components/contexts/ContextResult";
 import Link from "next/link";
 import { buildReport } from '@/lib/report';
 import ProfileInsights from '@/components/ProfileInsights';
+import NoSavedResult from '@/components/NoSavedResult';
 
 function ResultContent() {
-  const [p, setP] = useState(null);
+  const [p, setP] = useState(undefined);
   const [contextId,setContextId]=useState(null);
   useEffect(() => {
     const params=new URLSearchParams(window.location.search);
@@ -22,12 +23,14 @@ function ResultContent() {
     else setP(getLatestResult());
   }, []);
   if(contextId!==null) return <ContextResult sessionId={contextId}/>;
-  if (!p)
+  if (p === undefined)
     return (
       <main className="wrap">
-        <section className="card">Loading…</section>
+        <section className="card" role="status">กำลังโหลดผล…</section>
       </main>
     );
+
+  if (!p) return <NoSavedResult />;
 
   const adjacent = adjacentTypes(p.type, p.dims);
   const report=buildReport(p);

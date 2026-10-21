@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getLatestResult } from "@/lib/storage";
 import SignPreview from "@/components/signs/SignPreview";
-import { decodeLocalShare } from "@/lib/share";
+import { decodeLocalShare, isValidResult } from "@/lib/share";
 
 const DIMENSIONS = ["EI", "SN", "TF", "JP"];
 
@@ -181,6 +181,7 @@ export default function ComparePage() {
   }, []);
 
   async function loadDatabaseShare(token) {
+    setLoaded(false);
     setLoadingFriend(true);
     setImportError("");
     setImportMessage("");
@@ -193,7 +194,7 @@ export default function ComparePage() {
         throw new Error(data.error || "ไม่พบผลที่แชร์");
       }
 
-      if (!data?.result?.dims) {
+      if (!isValidResult(data?.result)) {
         throw new Error("ข้อมูลผลลัพธ์ไม่สมบูรณ์");
       }
 
@@ -214,6 +215,7 @@ export default function ComparePage() {
   }
 
   function loadLocalShare(token) {
+    setLoaded(false);
     setImportError("");
     setImportMessage("");
 
@@ -241,6 +243,7 @@ export default function ComparePage() {
     setImportMessage("");
 
     if (!parsed) {
+      setLoaded(false);
       setImportError("กรุณาวาง Share Link หรือ Friend Code ที่ถูกต้อง");
       return;
     }
@@ -300,6 +303,7 @@ export default function ComparePage() {
   }
 
   async function shareComparison() {
+    if (!loaded || loadingFriend) return;
     setShareMessage("");
 
     const url = window.location.href;
@@ -332,7 +336,7 @@ export default function ComparePage() {
   }
 
   const analysis = useMemo(() => {
-    if (!me) return null;
+    if (!me || !loaded || loadingFriend) return null;
 
     const strongest = strongestDifference(me.dims, other.dims);
 
@@ -354,7 +358,7 @@ export default function ComparePage() {
       work: workInsight(me.dims, other.dims),
       conflict: conflictInsight(me.dims, other.dims),
     };
-  }, [me, other]);
+  }, [me, other, loaded, loadingFriend]);
 
   if (!me) {
     return (
@@ -565,6 +569,7 @@ export default function ComparePage() {
               )}
             </div>
 
+            {loaded && !loadingFriend ? <>
             <SignPreview type={otherType} />
             <h2 style={{ fontSize: 34, marginBottom: 6 }}>{otherType}</h2>
 
@@ -613,6 +618,7 @@ export default function ComparePage() {
                 />
               </div>
             ))}
+            </> : <p className="muted" role="status">{loadingFriend ? 'กำลังโหลดผลของอีกคน…' : 'นำเข้าผลของอีกคนเพื่อเริ่มเปรียบเทียบ'}</p>}
           </div>
         </div>
 
@@ -641,7 +647,7 @@ export default function ComparePage() {
         )}
 
         {/* DIMENSION COMPARISON */}
-        <div style={{ marginTop: 18 }}>
+        {analysis && <div style={{ marginTop: 18 }}>
           {DIMENSIONS.map((key) => {
             const diff = Math.abs(me.dims[key] - other.dims[key]);
             const meta = DIMENSION_META[key];
@@ -707,7 +713,7 @@ export default function ComparePage() {
               </div>
             );
           })}
-        </div>
+        </div>}
 
         {/* INSIGHTS */}
         {analysis && (
@@ -776,7 +782,7 @@ export default function ComparePage() {
         )}
 
         {/* SHARE COMPARISON */}
-        <div
+        {analysis && <div
           className="info"
           style={{
             marginTop: 18,
@@ -810,7 +816,7 @@ export default function ComparePage() {
               {shareMessage}
             </div>
           )}
-        </div>
+        </div>}
 
         <div
           className="muted"

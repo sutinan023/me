@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { CONTEXT_VERSION } from '../data/contextQuestions.js';
 
 test('context questionnaires have matching IDs, balanced directions and valid scores', async () => {
   const { CONTEXTS, getContextQuestions } = await import('../data/contextQuestions.js');
@@ -22,7 +23,7 @@ test('context questionnaires have matching IDs, balanced directions and valid sc
     for (const bad of [Array(23).fill(4),Array(25).fill(4),Array(24).fill(null),Array(24).fill(0),Array(24).fill(8),Array(24).fill('4'),Array(24).fill(NaN)]) assert.throws(()=>scoreContext(key,bad));
   }
   assert.throws(()=>getContextQuestions('invalid'));
-  const general={context:'general',questionnaireVersion:'context-v1.0',dims:{EI:50,SN:49,TF:56,JP:38}};
+  const general={context:'general',questionnaireVersion:CONTEXT_VERSION,dims:{EI:50,SN:49,TF:56,JP:38}};
   const work={...general,context:'work',dims:{EI:50,SN:51,TF:44,JP:38}};
   const result=compareContextSessions(general,work);
   assert.equal(result.rows[2].delta,-12);

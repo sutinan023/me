@@ -7,12 +7,15 @@ const latin = DM_Sans({ subsets:["latin"], weight:["400","500","600","700","800"
 
 export const metadata = {
   title: "Personality Type Explorer",
-  description: "Research-informed self-discovery through four personality dimensions."
+  description: "Research-informed self-discovery through four personality dimensions.",
+  icons: {
+    icon: { url: '/mark.svg', type: 'image/svg+xml' },
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="th" className={`${thai.variable} ${latin.variable}`}>
+    <html lang="th" data-scroll-behavior="smooth" className={`${thai.variable} ${latin.variable}`}>
       <body style={{fontFamily:"var(--font-thai), var(--font-latin), sans-serif"}}>
         <Header />
         {children}
