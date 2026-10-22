@@ -1,0 +1,16 @@
+[
+  {
+    "file": "NotoSansThai-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5/ofl/notosansthai/NotoSansThai%5Bwdth%2Cwght%5D.ttf",
+    "revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+    "bytes": 218652,
+    "sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8"
+  },
+  {
+    "file": "DMSans-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/5b35b7208dd4100571326fdf37f030b32a524232/ofl/dmsans/DMSans%5Bopsz%2Cwght%5D.ttf",
+    "revision": "5b35b7208dd4100571326fdf37f030b32a524232",
+    "bytes": 240164,
+    "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d"
+  }
+]

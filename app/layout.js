@@ -1,9 +1,9 @@
 import "./globals.css";
-import { Noto_Sans_Thai, DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import Header from "@/components/Header";
 
-const thai = Noto_Sans_Thai({ subsets:["thai"], weight:["400","500","600","700","800","900"], variable:"--font-thai", display:"swap" });
-const latin = DM_Sans({ subsets:["latin"], weight:["400","500","600","700","800","900"], variable:"--font-latin", display:"swap" });
+const thai = localFont({ src:"./fonts/NotoSansThai-Variable.ttf", weight:"400 900", style:"normal", variable:"--font-thai", display:"swap" });
+const latin = localFont({ src:"./fonts/DMSans-Variable.ttf", weight:"400 900", style:"normal", variable:"--font-latin", display:"swap" });
 
 export const metadata = {
   title: "Personality Type Explorer",
