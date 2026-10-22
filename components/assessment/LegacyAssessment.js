@@ -10,6 +10,7 @@ import {
   getAnswers,
   saveAnswers,
   saveLatestResult,
+  showAssessmentIntroOnce,
 } from "@/lib/storage";
 
 export default function AssessmentPage() {
@@ -21,6 +22,7 @@ export default function AssessmentPage() {
   const [saveError, setSaveError] = useState("");
   const savingRef = useRef(false);
   const autoNextTimer = useRef(null);
+  const introChecked = useRef(false);
 
   useEffect(() => {
     const saved = getAnswers(QUESTIONS.length);
@@ -28,6 +30,11 @@ export default function AssessmentPage() {
     const first = saved.findIndex((x) => x == null);
     if (first >= 0) setIndex(first);
     else if (saved.every((x) => x != null)) setIndex(QUESTIONS.length - 1);
+
+    if (!introChecked.current) {
+      introChecked.current = true;
+      showAssessmentIntroOnce(window);
+    }
 
     return () => {
       if (autoNextTimer.current) clearTimeout(autoNextTimer.current);
@@ -151,8 +158,6 @@ export default function AssessmentPage() {
     <main className="wrap">
       <section className="card">
         <p className="eyebrow">มาสำรวจจังหวะที่เป็นคุณ</p>
-        <p className="muted">ลองนึกถึงสิ่งที่คุณมักทำจริงในชีวิตประจำวัน ไม่มีคำตอบถูกหรือผิด และไม่ต้องเลือกด้านใดด้านหนึ่งสุดทาง</p>
-        <p className="context-small">1 = ใกล้ด้านซ้ายมาก · 4 = ใกล้ทั้งสองด้านพอ ๆ กัน · 7 = ใกล้ด้านขวามาก</p>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, color: "var(--muted)", fontSize: 13 }}>
           <span>Question {index + 1} / {QUESTIONS.length}</span>
           <span>ตอบแล้ว {answered}</span>
